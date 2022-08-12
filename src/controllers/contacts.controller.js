@@ -16,7 +16,7 @@ contactsCtrl.createNewContact = async (req, res) => {
     });
 
     await newContact.save();
-
+    req.flash('success_msg', 'Contact Added Successfully');
     res.redirect('/contacts');
 }
 
@@ -40,11 +40,13 @@ contactsCtrl.updateContact = async (req, res) => {
         phone
     });
 
+    req.flash('success_msg', 'Contact Updated Successfully');
     res.redirect('/contacts');
 }
 
 contactsCtrl.deleteContact = async (req, res) => {
     await Contact.findByIdAndDelete(req.params.id);
+    req.flash('success_msg', 'Contact Deleted Successfully');
     res.redirect('/contacts');
 }
 
