@@ -7,7 +7,10 @@
                         {{name}} <a href="/contacts/edit/{{_id}}"><i class="fa fa-pencil"></i></a>
                     </h4>
                     <p>{{lastname}}</p>
-                    <form action="/contacts/delete/{{_id}}" method="POST">
+                    <p>{{email}}</p>
+                    <p>{{phone}}</p>
+                    <form action="/contacts/delete/{{_id}}?_method=DELETE" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger btn-block btn-sm">
                             Delete
                         </button>

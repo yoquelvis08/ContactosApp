@@ -17,7 +17,7 @@ contactsCtrl.createNewContact = async (req, res) => {
 
     await newContact.save();
 
-    res.send('new contact');
+    res.redirect('/contacts');
 }
 
 contactsCtrl.renderContacts = async (req, res) => {
@@ -33,8 +33,9 @@ contactsCtrl.updateContact = (req, res) => {
     res.send('update contact')
 }
 
-contactsCtrl.deleteContact = (req, res) => {
-    res.send('deleting contact')
+contactsCtrl.deleteContact = async (req, res) => {
+    await Contact.findByIdAndDelete(req.params.id);
+    res.redirect('/contacts');
 }
 
 module.exports = contactsCtrl;
