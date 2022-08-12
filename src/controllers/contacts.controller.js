@@ -1,10 +1,11 @@
 const contactsCtrl = {};
 
 contactsCtrl.renderContactForm = (req, res) => {
-    res.send('contac app');
+    res.render('contacts/new-contact');
 };
 
 contactsCtrl.createNewContact = (req, res) => {
+    console.table(req.body)
     res.send('new contact')
 }
 

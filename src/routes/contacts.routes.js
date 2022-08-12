@@ -14,7 +14,7 @@ const {
 // New contact
 router.get('/contacts/add', renderContactForm);
 
-router.post('/contacts/add', createNewContact);
+router.post('/contacts/new-contact', createNewContact);
 
 
 // Get all contacts
