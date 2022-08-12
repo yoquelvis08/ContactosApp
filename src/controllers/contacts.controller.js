@@ -25,12 +25,22 @@ contactsCtrl.renderContacts = async (req, res) => {
     res.render('contacts/all-notes', { contacts });
 }
 
-contactsCtrl.renderEditForm = (req, res) => {
-    res.send('render edit form')
+contactsCtrl.renderEditForm = async (req, res) => {
+    const contact = await Contact.findById(req.params.id).lean();
+    res.render('contacts/edit-contact', { contact });
 }
 
-contactsCtrl.updateContact = (req, res) => {
-    res.send('update contact')
+contactsCtrl.updateContact = async (req, res) => {
+    const { name, lastname, email, phone } = req.body;
+
+    await Contact.findByIdAndUpdate(req.params.id, {
+        name,
+        lastname,
+        email,
+        phone
+    });
+
+    res.redirect('/contacts');
 }
 
 contactsCtrl.deleteContact = async (req, res) => {
