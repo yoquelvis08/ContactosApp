@@ -16,7 +16,12 @@ const ContactSchema = new Schema({
     phone: {
         type: String,
         requires: true
-    }
+    },
+    user: {
+        type: String,
+        requires: true
+    },
+
 }, {
     timestamps: true
 });

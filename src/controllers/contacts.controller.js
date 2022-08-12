@@ -15,18 +15,23 @@ contactsCtrl.createNewContact = async (req, res) => {
         phone
     });
 
+    newContact.user = req.user.id;
     await newContact.save();
     req.flash('success_msg', 'Contact Added Successfully');
     res.redirect('/contacts');
 }
 
 contactsCtrl.renderContacts = async (req, res) => {
-    const contacts = await Contact.find().lean();
+    const contacts = await Contact.find({user: req.user.id}).lean();
     res.render('contacts/all-notes', { contacts });
 }
 
 contactsCtrl.renderEditForm = async (req, res) => {
-    const contact = await Contact.findById(req.params.id).lean();
+    const contact = await Contact.findById(req.params.id).sort({createdAt: 'desc'}).lean();
+    if (contact.user != req.user.id) {
+        req.flash('error_msg', 'Not Authorized');
+        return res.redirect('/contacts');
+    }
     res.render('contacts/edit-contact', { contact });
 }
 
