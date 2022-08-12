@@ -1,5 +1,7 @@
 const usersCtrl = {};
 
+const passport = require('passport');
+
 const User = require('../models/User');
 
 usersCtrl.renderSingUpForm = (req, res) => {
@@ -43,12 +45,20 @@ usersCtrl.renderSinginForm = (req, res) => {
     res.render('users/singin');
 }
 
-usersCtrl.singin = (req, res) => {
-    res.send('singin');
-}
+usersCtrl.singin = passport.authenticate('local', {
+    failureRedirect: '/users/singin',
+    successRedirect: '/contacts',
+    failureFlash: true
+});
 
 usersCtrl.logout = (req, res) => {
-    res.send('logout');
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success_msg', 'You area logged out now.');
+        res.redirect('/users/singin');
+    });
 }
 
 
