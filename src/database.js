@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const connectMongo = async () => {
-    await mongoose.connect(CONTACT_APP_MONGODB_URL || 'mongodb://localhost/contacts-app', {
+    await mongoose.connect(process.env.CONTACT_APP_MONGODB_URL || 'mongodb://localhost/contacts-app', {
         useUnifiedTopology: true,
         useNewUrlParser: true
     })
