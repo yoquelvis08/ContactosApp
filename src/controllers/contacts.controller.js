@@ -17,7 +17,7 @@ contactsCtrl.createNewContact = async (req, res) => {
 
     newContact.user = req.user.id;
     await newContact.save();
-    req.flash('success_msg', 'Contact Added Successfully');
+    req.flash('success_msg', 'Contacto agregado correctamente.');
     res.redirect('/contacts');
 }
 
@@ -29,7 +29,7 @@ contactsCtrl.renderContacts = async (req, res) => {
 contactsCtrl.renderEditForm = async (req, res) => {
     const contact = await Contact.findById(req.params.id).sort({createdAt: 'desc'}).lean();
     if (contact.user != req.user.id) {
-        req.flash('error_msg', 'Not Authorized');
+        req.flash('error_msg', 'Usuario no autorizado.');
         return res.redirect('/contacts');
     }
     res.render('contacts/edit-contact', { contact });
@@ -45,14 +45,21 @@ contactsCtrl.updateContact = async (req, res) => {
         phone
     });
 
-    req.flash('success_msg', 'Contact Updated Successfully');
+    req.flash('success_msg', 'Contacto actualizado correctamente.');
     res.redirect('/contacts');
 }
 
 contactsCtrl.deleteContact = async (req, res) => {
     await Contact.findByIdAndDelete(req.params.id);
-    req.flash('success_msg', 'Contact Deleted Successfully');
+    req.flash('success_msg', 'Contacto eliminado correctamente.');
     res.redirect('/contacts');
+}
+
+// Pruebas
+
+contactsCtrl.renderSendForm = async (req, res) => {
+    const contact = await Contact.findById(req.params.id).lean();
+    res.render('contacts/send-email', { contact });
 }
 
 module.exports = contactsCtrl;

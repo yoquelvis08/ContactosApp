@@ -7,7 +7,8 @@ const {
     renderContacts, 
     renderEditForm, 
     updateContact, 
-    deleteContact 
+    deleteContact,
+    renderSendForm
 } = require('../controllers/contacts.controller');
 
 
@@ -31,5 +32,8 @@ router.put('/contacts/edit/:id', isAuthenticated, updateContact);
 
 // Delete contacts
 router.delete('/contacts/delete/:id', isAuthenticated, deleteContact);
+
+// Send email
+router.get('/contacts/send/:id', isAuthenticated, renderSendForm);
 
 module.exports = router;
